@@ -33,9 +33,6 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Generated automation outputs
-screenshots/
-test_results.xlsx
-test_report.docx
 *.tmp.xlsx
 
 # Local booking data
