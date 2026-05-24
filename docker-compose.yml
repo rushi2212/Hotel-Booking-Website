@@ -2,7 +2,9 @@
   backend:
     build: ./backend
     ports:
-      - "8000:8000"
+      - "${BACKEND_PORT:-8000}:${PORT:-8000}"
+    environment:
+      - PORT=${PORT:-8000}
     volumes:
       - ./backend/data:/app/data
 
@@ -11,7 +13,7 @@
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_URL=http://localhost:8000
+      - VITE_API_URL=http://localhost:${BACKEND_PORT:-8000}
     depends_on:
       - backend
 
@@ -26,7 +28,7 @@
       - OPENROUTER_SITE_URL=${OPENROUTER_SITE_URL:-http://localhost:5173}
       - OPENROUTER_APP_NAME=${OPENROUTER_APP_NAME:-Hotel Booking Test Automation}
       - BASE_URL=http://frontend:5173
-      - API_HEALTH_URL=http://backend:8000/health
+      - API_HEALTH_URL=http://backend:${PORT:-8000}/health
     command: >
       bash -lc "pip install -r automation/requirements.txt
       && python automation/generate_test_cases.py

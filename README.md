@@ -17,7 +17,16 @@ Terminal 1:
 ```bash
 cd backend
 pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+python start.py
+```
+
+The backend reads the runtime port from `PORT`. If `PORT` is not set, it uses `8000`.
+
+Windows PowerShell custom port example:
+
+```powershell
+$env:PORT="9000"
+python start.py
 ```
 
 Terminal 2:
@@ -74,7 +83,17 @@ The automation preflight checks that the frontend and backend are running before
 docker compose up --build
 ```
 
-The website runs at `http://localhost:5173` and the API runs at `http://localhost:8000`.
+The website runs at `http://localhost:5173` and the API runs at `http://localhost:8000` by default.
+
+Windows PowerShell custom Docker port example:
+
+```powershell
+$env:PORT="9000"
+$env:BACKEND_PORT="9001"
+docker compose up --build
+```
+
+With these values, the backend listens on port `9000` inside Docker and is available on your machine at `http://localhost:9001`.
 
 ## Test Coverage
 
